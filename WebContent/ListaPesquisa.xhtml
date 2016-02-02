@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+<ui:composition template="/templates/modeloGeral.xhtml">
+	<ui:define name="metadata">
+		<f:metadata>
+			<f:event listener="#{listaBean.carregar}" type="preRenderView" />
+
+		</f:metadata>
+
+	</ui:define>
+	<ui:define name="conteudo">
+		<h:form>
+			<p:toolbar>
+				<f:facet name="left">
+					<h:outputLabel value="Listas" />
+				</f:facet>
+			</p:toolbar>
+
+			<p:dataTable value="#{listaBean.listaSalvas}"
+				filteredValue="#{listaBean.listaFiltro}" var="lista" rows="4"
+				paginator="true">
+				<p:column headerText="Id">
+					<h:outputText value="#{lista.id}" />
+				</p:column>
+
+
+				<p:column headerText="Nome" filterBy="#{lista.nome}"
+					sortBy="#{lista.nome}">
+					<h:outputLabel value="#{lista.nome}" />
+				</p:column>
+				<f:facet name="footer">
+					<p:button value="Novo"
+						outcome="ListaCadastro.xhtml?faces-redirect=true">
+						<f:param name="LisAcao" value="Novo" />
+						
+					</p:button>
+					
+				</f:facet>
+				<p:column headerText="Opções">
+					<p:button value="Excluir"
+						outcome="ListaCadastro.xhtml?faces-redirect=true">
+						<f:param name="LisAcao" value="Excluir" />
+						<f:param name="LisId" value="#{lista.id}" />
+					</p:button>
+					
+					
+					<p:button value="Editar"
+						outcome="ListaCadastro.xhtml?faces-redirect=true">
+						<f:param name="LisAcao" value="Editar" />
+						<f:param name="LisId" value="#{lista.id}" />
+					</p:button>
+
+	
+				</p:column>
+			</p:dataTable>
+		</h:form>
+
+	</ui:define>
+</ui:composition>
+</html>

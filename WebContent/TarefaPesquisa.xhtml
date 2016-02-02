@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+<ui:composition template="/templates/modeloGeral.xhtml">
+	<ui:define name="metadata">
+		<f:metadata>
+			<f:event listener="#{tarefasBean.carregar}" type="preRenderView" />
+
+		</f:metadata>
+
+	</ui:define>
+	<ui:define name="conteudo">
+		<h:form>
+			<p:toolbar>
+				<f:facet name="left">
+					<h:outputLabel value="Tarefas" />
+				</f:facet>
+			</p:toolbar>
+
+			<p:dataTable value="#{tarefasBean.tarefaSalvas}"
+				filteredValue="#{tarefasBean.tarefaFiltro}" var="tarefa" rows="4"
+				paginator="true">
+
+				<p:column headerText="Lista" filterBy="#{tarefa.lista.nome}" sortBy="#{tarefa.lista.nome}">
+					<h:outputText value="#{tarefa.lista.nome}" />
+				</p:column>
+				<p:column headerText="Estado">
+					<h:outputText value="#{tarefa.estado}" />
+				</p:column>
+
+				<p:column headerText="Id">
+					<h:outputText value="#{tarefa.id}" />
+				</p:column>
+
+
+				<p:column headerText="Nome" filterBy="#{tarefa.nome}"
+					sortBy="#{tarefa.nome}">
+					<h:outputLabel value="#{tarefa.nome}" />
+				</p:column>
+				<f:facet name="footer">
+					<p:button value="Novo"
+						outcome="TarefaCadastro.xhtml?faces-redirect=true">
+						<f:param name="Taracao" value="Novo" />
+						
+					</p:button>
+					
+				</f:facet>
+								<p:column headerText="Opções">
+					<p:button value="Excluir"
+						outcome="TarefaCadastro.xhtml?faces-redirect=true">
+						<f:param name="Taracao" value="Excluir" />
+						<f:param name="TarId" value="#{tarefa.id}" />
+					</p:button>
+					<p:button value="Editar"
+						outcome="TarefaCadastro.xhtml?faces-redirect=true">
+						<f:param name="Taracao" value="Editar" />
+						<f:param name="TarId" value="#{tarefa.id}" />
+					</p:button>
+
+
+				</p:column>
+			</p:dataTable>
+		</h:form>
+
+	</ui:define>
+</ui:composition>
+</html>

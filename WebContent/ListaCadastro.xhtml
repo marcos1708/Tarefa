@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+<ui:composition template="/templates/modeloGeral.xhtml">
+	<ui:define name="metadata">
+		<f:metadata>
+			<f:event listener="#{listaBean.carregarCadastro}"
+				type="preRenderView" />
+		</f:metadata>
+	</ui:define>
+
+	<ui:define name="conteudo">
+
+		<h:form id="CadList">
+			<p:toolbar>
+				<f:facet name="left">
+					<h:outputLabel value="Listas" />
+				</f:facet>
+			</p:toolbar>
+			<h:panelGrid columns="2" id="pnlLisCad">
+
+				<h:outputLabel value="Id" />
+				<h:inputText maxlength="20" size="10" readonly="true"
+					value="#{listaBean.listaCadastro.id}" />
+
+				<h:outputLabel value="Nome" />
+				<h:inputText maxlength="50" size="30"
+					value="#{listaBean.listaCadastro.nome}" />
+
+
+			</h:panelGrid>
+
+			<h:panelGrid columns="5">
+
+
+
+
+
+
+				<p:commandButton value="Novo" actionListener="#{listaBean.novo}"
+					update=":CadList:pnlLisCad" rendered="#{listaBean.acao == 'Novo'}" />
+
+				<p:commandButton value="Salvar" actionListener="#{listaBean.salvar}"
+					update=":CadList:pnlLisCad"
+					rendered="#{listaBean.acao == 'Novo'}">
+					
+				</p:commandButton>
+
+
+				<p:button value="Voltar"
+					outcome="ListaPesquisa.xhtml?faces-redirect=true" />
+				<p:commandButton value="Excluir"
+					actionListener="#{listaBean.excluir}" update=":msgGlobal"
+					rendered="#{listaBean.acao == 'Excluir'}" />
+				<p:commandButton value="Editar" actionListener="#{listaBean.editar}"
+					update=":msgGlobal" rendered="#{listaBean.acao == 'Editar'}" />
+			</h:panelGrid>
+		</h:form>
+
+	</ui:define>
+</ui:composition>
+</html>
